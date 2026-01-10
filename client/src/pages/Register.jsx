@@ -39,14 +39,6 @@ const Register = () => {
         try {
             const res = await axios.post('http://localhost:5000/api/register', formData);
             setStatus({ type: 'success', message: res.data.message });
-            setFormData({
-                name: '',
-                registrationNumber: '',
-                department: '',
-                session: '',
-                contactNumber: '',
-                tshirtSize: '',
-            });
         } catch (err) {
             setStatus({
                 type: 'error',
@@ -56,6 +48,44 @@ const Register = () => {
             setLoading(false);
         }
     };
+
+    if (status.type === 'success') {
+        return (
+            <div className="min-h-screen py-20 px-4 flex items-center justify-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="glass-card w-full max-w-lg p-10 rounded-2xl shadow-xl text-center"
+                >
+                    <CheckCircle size={80} className="text-neon-green mx-auto mb-6" />
+                    <h2 className="text-3xl font-bold mb-4 neon-text">Registration Complete!</h2>
+                    <p className="text-gray-300 mb-8 text-lg">Thank you for registering for INTRA SUST.</p>
+
+                    <div className="flex flex-col gap-4">
+                        <Link to="/" className="bg-neon-green text-dark-bg font-bold py-3 rounded-lg hover:bg-green-400 transition-colors">
+                            Go Home
+                        </Link>
+                        <button
+                            onClick={() => {
+                                setStatus({ type: '', message: '' });
+                                setFormData({
+                                    name: '',
+                                    registrationNumber: '',
+                                    department: '',
+                                    session: '',
+                                    contactNumber: '',
+                                    tshirtSize: '',
+                                });
+                            }}
+                            className="bg-transparent border border-gray-600 text-gray-300 font-bold py-3 rounded-lg hover:bg-white/5 transition-colors"
+                        >
+                            Register Another Person
+                        </button>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen py-20 px-4 flex items-center justify-center">
@@ -133,17 +163,17 @@ const Register = () => {
                         <label className="block text-gray-400 mb-2">Session</label>
                         <div className="grid grid-cols-3 gap-4">
                             {sessions.map((s) => (
-                                <label key={s} className={`cursor-pointer border rounded-lg p-3 text-center transition-all ${formData.session === s ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'border-gray-700 hover:border-gray-500'}`}>
-                                    <input
-                                        type="radio"
-                                        name="session"
-                                        value={s}
-                                        checked={formData.session === s}
-                                        onChange={handleChange}
-                                        className="hidden"
-                                    />
+                                <button
+                                    key={s}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, session: s })}
+                                    className={`border rounded-lg p-3 text-center transition-all duration-200 ${formData.session === s
+                                            ? 'bg-neon-green text-dark-bg font-bold border-neon-green shadow-[0_0_15px_rgba(57,255,20,0.4)]'
+                                            : 'border-gray-700 hover:border-gray-500 text-gray-400 hover:text-white'
+                                        }`}
+                                >
                                     {s}
-                                </label>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -152,17 +182,17 @@ const Register = () => {
                         <label className="block text-gray-400 mb-2">T-shirt Size</label>
                         <div className="flex flex-wrap gap-4">
                             {sizes.map((s) => (
-                                <label key={s} className={`cursor-pointer border rounded-lg w-12 h-12 flex items-center justify-center transition-all ${formData.tshirtSize === s ? 'bg-neon-green/20 border-neon-green text-neon-green' : 'border-gray-700 hover:border-gray-500'}`}>
-                                    <input
-                                        type="radio"
-                                        name="tshirtSize"
-                                        value={s}
-                                        checked={formData.tshirtSize === s}
-                                        onChange={handleChange}
-                                        className="hidden"
-                                    />
+                                <button
+                                    key={s}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, tshirtSize: s })}
+                                    className={`border rounded-lg w-12 h-12 flex items-center justify-center transition-all duration-200 ${formData.tshirtSize === s
+                                            ? 'bg-neon-green text-dark-bg font-bold border-neon-green shadow-[0_0_15px_rgba(57,255,20,0.4)]'
+                                            : 'border-gray-700 hover:border-gray-500 text-gray-400 hover:text-white'
+                                        }`}
+                                >
                                     {s}
-                                </label>
+                                </button>
                             ))}
                         </div>
                     </div>

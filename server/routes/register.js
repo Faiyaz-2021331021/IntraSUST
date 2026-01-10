@@ -3,12 +3,10 @@ const router = express.Router();
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const { JWT } = require('google-auth-library');
 
-require('dotenv').config();
-
-// Helper function to initialize sheet
+// Helper function
 async function getSheet() {
     if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY) {
-        throw new Error('Missing Google Credentials in .env file');
+        throw new Error('Missing Google Credentials');
     }
 
     const serviceAccountAuth = new JWT({
@@ -19,54 +17,111 @@ async function getSheet() {
 
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
     await doc.loadInfo();
-    return doc.sheetsByIndex[0]; // Access the first sheet
-}
+    const sheet = doc.sheetsByIndex[0];
 
-// @route   POST /api/register
-// @desc    Register a new participant to Google Sheets
-// @access  Public
-router.post('/', async (req, res) => {
-    const { name, registrationNumber, department, session, contactNumber, tshirtSize } = req.body;
-
-    // Basic Validation
-    if (!name || !registrationNumber || !department || !session || !contactNumber) {
-        return res.status(400).json({ message: 'Please enter all required fields' });
-    }
+    // Ensure headers are set (fixes overwriting issues on empty sheets)
+    const EXPECTED_HEADERS = [
+        'Timestamp',
+        'Name',
+        'Registration Number',
+        'Department',
+        'Session',
+        'Contact Number',
+        'Tshirt Size'
+    ];
 
     try {
-        const sheet = await getSheet();
+        await sheet.loadHeaderRow();
+    } catch (e) {
+        // Headers might be missing
+    }
 
-        // Check for duplicates (optional but recommended)
-        // For simplicity, we might skip reading all rows if sheet is huge, 
-        // but for this scale it's fine.
-        const rows = await sheet.getRows();
-        const isDuplicate = rows.some(row => row.get('Registration Number') === registrationNumber);
+    // If headers are missing or incomplete, set them and ensure there are enough columns.
+    if (!sheet.headerValues || sheet.headerValues.length < EXPECTED_HEADERS.length) {
+        // Ensure enough columns exist for all headers
+        if ((sheet.columnCount || 0) < EXPECTED_HEADERS.length) {
+            await sheet.resize({ rowCount: sheet.rowCount, columnCount: EXPECTED_HEADERS.length });
+        }
+        await sheet.setHeaderRow(EXPECTED_HEADERS);
+        // reload to get the new header values
+        await sheet.loadHeaderRow();
+    }
 
-        if (isDuplicate) {
-            return res.status(400).json({ message: 'Participant already registered (Reg No match)' });
+    console.log('Sheet columns:', sheet.columnCount, 'Headers:', sheet.headerValues);
+
+    return sheet;
+}
+
+router.post('/', async (req, res) => {
+    try {
+        const {
+            name,
+            registrationNumber,
+            department,
+            session,
+            contactNumber,
+            tshirtSize
+        } = req.body;
+
+        if (!name || !registrationNumber || !department || !session || !contactNumber) {
+            return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        // Add new row
-        await sheet.addRow({
-            'Name': name,
-            'Registration Number': registrationNumber,
-            'Department': department,
-            'Session': session,
-            'Contact Number': contactNumber,
-            'T-shirt Size': tshirtSize,
-            'Timestamp': new Date().toISOString()
-        });
+        const sheet = await getSheet();
 
-        res.json({
-            message: 'Registration successful! Added to Google Sheet.',
-        });
+        // Debug logging
+        console.log('Current Row Count:', sheet.rowCount);
+        console.log('Loaded Headers:', sheet.headerValues);
+
+        const rows = await sheet.getRows();
+        console.log('Fetched Rows Length:', rows.length);
+
+        const isDuplicate = rows.some(row => row.get('Registration Number') === registrationNumber);
+        if (isDuplicate) {
+            return res.status(400).json({ message: 'Registration Number already exists' });
+        }
+
+        // Calculate the next row index (1 = header, data starts at 2)
+        const nextRowIndex = rows.length + 2;
+
+        // Expand sheet to accommodate the new row
+        if (sheet.rowCount < nextRowIndex) {
+            console.log(`Expanding sheet: ${sheet.rowCount} -> ${nextRowIndex}`);
+            await sheet.resize({ rowCount: nextRowIndex, columnCount: sheet.columnCount });
+        }
+
+        console.log(`Adding new registration at row ${nextRowIndex}...`);
+
+        // Use cells API to write directly via loadCells/getCell/saveUpdatedCells
+        const values = [
+            new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+            name,
+            registrationNumber,
+            department,
+            session,
+            contactNumber,
+            tshirtSize
+        ];
+
+        // Load the exact row range (A..G for that row)
+        const rangeA1 = `A${nextRowIndex}:G${nextRowIndex}`;
+        await sheet.loadCells(rangeA1);
+
+        // getCell uses zero-based indices
+        const rowZero = nextRowIndex - 1;
+        for (let col = 0; col < values.length; col++) {
+            const cell = sheet.getCell(rowZero, col);
+            cell.value = values[col];
+        }
+
+        await sheet.saveUpdatedCells();
+        console.log('Row Added at row:', nextRowIndex);
+
+        res.json({ message: '✅ Registration successful' });
+
     } catch (err) {
-        console.error('Google Sheets Error:', err);
-        // Write error to file for debugging
-        const fs = require('fs');
-        fs.appendFileSync('error.log', new Date().toISOString() + ' - ' + err.message + '\n' + JSON.stringify(err) + '\n');
-
-        res.status(500).json({ message: 'Server Error: Could not save to Google Sheet. ' + err.message });
+        console.error(err);
+        res.status(500).json({ message: err.message });
     }
 });
 
