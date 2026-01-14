@@ -16,6 +16,17 @@ const Sponsors = () => {
             website: "https://www.appifylab.com/",
             facebook: "https://www.appifylab.com/"
         },
+        {
+            name: "CPS Academy",
+            tier: "Silver",
+            color: "text-gray-300",
+            intro: "Choose your path to success. Master competitive programming or land your dream job at top tech companies.",
+            address: "A block, Road 3, Chandgaon Residential Area, Chittagong, Bangladesh",
+            phone: "01759-261490",
+            email: "shahriar@cpsacademy.io",
+            website: "https://www.cpsacademy.io/",
+            facebook: "https://www.facebook.com/bd.cpsacademy"
+        },
     ];
 
     return (
@@ -46,6 +57,7 @@ const Sponsors = () => {
                                 ${sponsor.intro ? 'lg:col-span-3 md:col-span-2 bg-white/5 rounded-2xl border border-white/10' : 'h-48'}
                             `}
                         >
+                            <br></br>
                             {!sponsor.intro && (
                                 <div className="absolute inset-0 bg-cyan-500/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             )}
@@ -81,9 +93,13 @@ const Sponsors = () => {
                                             <Phone size={18} className="text-cyan-400" />
                                             <span>{sponsor.phone}</span>
                                         </div>
+                                        <div className="flex items-center gap-2">
+                                            <Mail size={18} className="text-cyan-400" />
+                                            <span>{sponsor.email}</span>
+                                        </div>
                                     </div>
                                     <br></br>
-                                    {/* BUTTONS ROW: Website, Facebook, Email */}
+                                    {/* BUTTONS ROW: Website, Facebook */}
                                     {/* changes: gap-8 (more space between), min-w-[180px] (forced width), py-4 (taller) */}
                                     <div className="flex flex-wrap justify-center items-center gap-8 pt-6">
 
@@ -101,14 +117,6 @@ const Sponsors = () => {
                                             Facebook
                                         </a>
 
-                                        {/* Email Button */}
-                                        <a href={`mailto:${sponsor.email}`}
-                                            target="_blank" rel="noopener noreferrer"
-                                            className="flex items-center justify-center gap-3 px-6 py-4 min-w-[180px] rounded-full bg-purple-600/10 hover:bg-purple-600/20 text-purple-400 hover:text-purple-300 transition-all border border-purple-500/20 font-medium tracking-wide text-lg shadow-lg shadow-purple-500/10">
-                                            <Mail size={20} />
-                                            Email
-                                        </a>
-
                                     </div>
                                     <br></br>
                                 </div>
@@ -124,7 +132,7 @@ const Sponsors = () => {
                     className="mt-20 text-center"
                 >
                     <p className="text-gray-400 text-lg">Interested in sponsoring?</p>
-                    <a href="mailto:sponsor@intrasust.com" className="text-cyan-400 font-bold hover:text-white text-lg transition-colors">Contact Us</a>
+                    <a href="mailto:ismailfaiyaz111@gmail.com" className="text-cyan-400 font-bold hover:text-white text-lg transition-colors">Contact Us</a>
                 </motion.div>
             </div>
         </div>
