@@ -28,7 +28,8 @@ async function getSheet() {
         'Session',
         'Contact Number',
         'Tshirt Size',
-        'Codeforces Handle' // New Column
+        'Codeforces Handle',
+        'Can Bring Laptop' // New Column
     ];
 
     try {
@@ -62,7 +63,8 @@ router.post('/', async (req, res) => {
             session,
             contactNumber,
             tshirtSize,
-            cfHandle // New Field
+            cfHandle,
+            canBringLaptop // New Field
         } = req.body;
 
         if (!name || !registrationNumber || !department || !session || !contactNumber) {
@@ -103,11 +105,12 @@ router.post('/', async (req, res) => {
             session,
             contactNumber,
             tshirtSize,
-            cfHandle || '' // Add cfHandle, default to empty string if undefined
+            cfHandle || '',
+            canBringLaptop || 'No' // Add canBringLaptop, default to No if undefined
         ];
 
-        // Load the exact row range (A..H for that row - 8 columns)
-        const rangeA1 = `A${nextRowIndex}:H${nextRowIndex}`;
+        // Load the exact row range (A..I for that row - 9 columns)
+        const rangeA1 = `A${nextRowIndex}:I${nextRowIndex}`;
         await sheet.loadCells(rangeA1);
 
         // getCell uses zero-based indices

@@ -43,12 +43,12 @@ const Home = () => {
                     initial={{ opacity: 0, y: -40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
-                    className="text-center mb-32"
+                    className="text-center"
                 >
                     {/* Badge */}
                     <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="inline-block mb-12"
+                        className="inline-block mb-6"
                     >
                         <span className="inline-flex items-center gap-4 px-10 py-4 rounded-full bg-cyan-900/20 border border-cyan-500/30 text-cyan-300 font-mono backdrop-blur-sm shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                             <BrainCircuit size={40} className="text-cyan-400" />
@@ -58,46 +58,21 @@ const Home = () => {
                         </span>
                     </motion.div>
 
-                    <h1 className="text-5xl md:text-8xl font-black mb-10 tracking-tight font-mono">
-                        <span className="block md:inline text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
-                            console.log("NEURAL_LINK");
-                        </span>
-                    </h1>
-
                     {/* Welcome Slogan - Unboxed, High Visibility */}
-                    <div className="max-w-6xl mx-auto space-y-8">
-                        <p className="text-2xl md:text-4xl font-bold leading-tight text-white drop-shadow-lg font-mono filter">
-                            if (user.mind == "connected" && user.code == "optimized") &#123;
+                    <div className="max-w-4xl mx-auto">
+                        <p className="text-lg md:text-2xl font-medium leading-relaxed text-cyan-100 drop-shadow-lg font-mono text-center tracking-wide">
+                            Intra SUST Programming Contest 2026 is an annual competitive programming contest organized for all students of Shahjalal University of Science and Technology (SUST). Open to participants from every department, the contest challenges students with a diverse set of engaging and thought-provoking problems, fostering problem-solving skills, logical thinking, and a passion for competitive programming.
                         </p>
-
-                        <p className="text-xl md:text-2xl text-cyan-200 font-medium font-mono pl-8 drop-shadow-md">
-                            // Ignite your neurons
-                            <br />
-                            // Solve the unsolvable
-                        </p>
-
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                            className="pt-6"
-                        >
-                            <span className="text-3xl md:text-4xl font-black text-cyan-400 uppercase tracking-widest drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] font-mono">
-                                initiateSequence();
-                                <div>
-                                    <br></br>
-                                    <span className="text-xl opacity-50 text-white">&#125;</span>
-                                    <br></br>
-                                </div>
-                            </span>
-                        </motion.div>
                     </div>
                 </motion.div>
+
+                {/* Explicit Spacer to force gap */}
+                <div style={{ height: '50px' }} className="w-full"></div>
 
                 {/* ===== BUTTONS ===== */}
                 <div
                     className="flex justify-center items-center flex-wrap w-full"
-                    style={{ gap: '100px' }}
+                    style={{ gap: '50px' }}
                 >
                     <NavCard
                         to="/register"

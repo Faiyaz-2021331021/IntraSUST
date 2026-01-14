@@ -12,9 +12,33 @@ import {
     Calendar,
     Shirt,
     ArrowLeft,
-    Code
+    Code,
+    Laptop
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+// Unboxed -> Glass Boxed Input Group
+const InputGroup = ({ label, icon: Icon, children, note }) => (
+    <div className="mb-6 last:mb-0 mx-auto" style={{ width: '454px', maxWidth: '100%' }}>
+        <label className="block text-cyan-300 text-sm font-bold mb-2 ml-1 shadow-[0_0_10px_black]">{label}</label>
+        <div
+            className="flex items-center bg-cyan-900/10 backdrop-blur-md border border-cyan-500/30 rounded-xl overflow-hidden focus-within:border-cyan-400 focus-within:bg-cyan-900/20 focus-within:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all duration-300"
+            style={{ height: '57px' }}
+        >
+            <div className="h-full w-14 text-cyan-400 flex items-center justify-center border-r border-cyan-500/10">
+                <Icon size={24} />
+            </div>
+            <div className="flex-1 h-full flex items-center">
+                {children}
+            </div>
+        </div>
+        {note && (
+            <p className="text-xs text-cyan-500/80 mt-1.5 ml-1 font-mono italic">
+                {note}
+            </p>
+        )}
+    </div>
+);
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -25,6 +49,7 @@ const Register = () => {
         contactNumber: '',
         tshirtSize: '',
         cfHandle: '',
+        canBringLaptop: '',
     });
 
     const [status, setStatus] = useState({ type: '', message: '' });
@@ -61,23 +86,7 @@ const Register = () => {
         }
     };
 
-    // Unboxed -> Glass Boxed Input Group
-    const InputGroup = ({ label, icon: Icon, children }) => (
-        <div className="mb-6 last:mb-0 mx-auto" style={{ width: '454px', maxWidth: '100%' }}>
-            <label className="block text-cyan-300 text-sm font-bold mb-2 ml-1 shadow-[0_0_10px_black]">{label}</label>
-            <div
-                className="flex items-center bg-cyan-900/10 backdrop-blur-md border border-cyan-500/30 rounded-xl overflow-hidden focus-within:border-cyan-400 focus-within:bg-cyan-900/20 focus-within:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all duration-300"
-                style={{ height: '57px' }}
-            >
-                <div className="h-full w-14 text-cyan-400 flex items-center justify-center border-r border-cyan-500/10">
-                    <Icon size={24} />
-                </div>
-                <div className="flex-1 h-full flex items-center">
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+    // InputGroup removed from here
 
     if (status.type === 'success') {
         return (
@@ -185,6 +194,27 @@ const Register = () => {
                                         <option key={s} value={s} style={{ color: 'white', backgroundColor: '#02021b' }}>{s}</option>
                                     ))}
                                 </select>
+                            </InputGroup>
+
+                            <InputGroup
+                                label="Can you bring a laptop if needed?"
+                                icon={Laptop}
+                                note="* We will verify and arrange devices for those who cannot."
+                            >
+                                <div className="flex flex-col w-full h-full justify-center">
+                                    <select
+                                        name="canBringLaptop"
+                                        value={formData.canBringLaptop}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full bg-transparent border-none px-4 text-lg text-white focus:outline-none focus:ring-0 appearance-none cursor-pointer [&>option]:bg-gray-900"
+                                        style={{ color: 'white' }}
+                                    >
+                                        <option value="" disabled style={{ color: 'white', backgroundColor: '#02021b' }}>Select Option</option>
+                                        <option value="Yes" style={{ color: 'white', backgroundColor: '#02021b' }}>Yes</option>
+                                        <option value="No" style={{ color: 'white', backgroundColor: '#02021b' }}>No</option>
+                                    </select>
+                                </div>
                             </InputGroup>
                         </div>
 
