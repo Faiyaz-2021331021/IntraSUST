@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Code, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, Code, AlertTriangle, ArrowLeft, Trophy } from 'lucide-react';
 
 const Rules = () => {
     return (
@@ -31,6 +31,19 @@ const Rules = () => {
                             <li>The contest will run for exactly <strong className="text-white">4 hours</strong>.</li>
                             <li>Penalty for wrong submission is <strong className="text-white">20 minutes</strong>.</li>
                             <li>The contest platform will open 30 minutes before the start time.</li>
+                        </ul>
+                    </Section>
+
+                    <Section
+                        icon={<Trophy className="text-purple-400 drop-shadow-[0_0_10px_rgba(192,132,252,0.8)]" size={40} />}
+                        title="Finalist Selection"
+                        delay={0.25}
+                    >
+                        <ul className="list-disc pl-5 space-y-2 text-gray-300 text-lg">
+                            <li>There will be <strong className="text-white">two preliminary contests</strong>.</li>
+                            <li><strong className="text-white">Top 25 individuals</strong> from the 1st preliminary contest will qualify directly.</li>
+                            <li><strong className="text-white">Top 25 individuals</strong> from the 2nd preliminary contest (excluding those already qualified from Day 1) will qualify.</li>
+                            <li>Total <strong className="text-white">50 individuals</strong> will advance to the Final Contest.</li>
                         </ul>
                     </Section>
 

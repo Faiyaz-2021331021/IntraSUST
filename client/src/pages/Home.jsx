@@ -8,7 +8,8 @@ import {
     Handshake,
     Zap,
     Terminal,
-    BrainCircuit
+    BrainCircuit,
+    Calendar
 } from "lucide-react";
 
 const Home = () => {
@@ -102,6 +103,16 @@ const Home = () => {
                         to="/register"
                         icon={<Code2 size={18} />}
                         title="Register"
+                        delay={0}
+                        variants={floatingVariant}
+                        bgColor={buttonBgColor}
+                        textColor={buttonTextColor}
+                        borderColor={borderColor}
+                    />
+                    <NavCard
+                        to="/schedule"
+                        icon={<Calendar size={18} />}
+                        title="Schedule"
                         delay={0}
                         variants={floatingVariant}
                         bgColor={buttonBgColor}
