@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 
 const PrizePool = () => {
     return (
-        <div
-            className="min-h-screen pt-16 px-4 relative font-mono"
-        >
+        <div className="min-h-screen pt-16 px-4 relative font-mono">
 
-            <div className="max-w-5xl mx-auto relative z-10">
+            <div className="w-full max-w-7xl mx-auto relative z-10">
 
+                {/* Back */}
                 <Link
                     to="/"
                     className="text-cyan-400 hover:text-white mb-6 block"
@@ -24,93 +23,126 @@ const PrizePool = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                 >
-                    <h1 className="text-4xl font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+                    <h1 className="text-4xl font-bold text-cyan-400">
                         Prize Pool
                     </h1>
-                    <p className="text-cyan-500 font-bold mt-2">Intra SUST Programming Contest - 2026</p>
+                    <p className="text-cyan-300 font-bold mt-2">
+                        Intra SUST Programming Contest - 2026
+                    </p>
                 </motion.div>
 
-                {/* 🏆 PODIUM - Unboxed / Glowing Borders */}
-                <div className="flex flex-wrap justify-center items-end gap-4 mb-16">
+                <motion.div>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                </motion.div>
+
+                {/* 🏆 PODIUM */}
+                <div className="grid grid-cols-3 gap-x-28 justify-items-center mb-16">
 
                     {/* 🥈 2nd */}
                     <motion.div
-                        className="w-44 p-4 text-center"
+                        className="flex flex-col items-center text-center"
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
                     >
-                        <Award size={40} className="mx-auto text-gray-300 mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
-                        <h3 className="text-lg font-semibold text-white drop-shadow-md">
+                        <Award size={56} className="text-cyan-400 mb-3" />
+                        <p className="text-lg font-semibold text-cyan-300">
                             2nd Place
-                        </h3>
-                        <p className="text-2xl font-bold text-cyan-300 drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]">
+                        </p>
+                        <p className="text-xl font-bold text-cyan-400">
                             ৳5,000
                         </p>
                     </motion.div>
 
                     {/* 🥇 1st */}
                     <motion.div
-                        className="w-52 p-5 text-center -translate-y-8"
+                        className="flex flex-col items-center text-center"
                         initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
                     >
-
                         <Trophy
-                            size={56}
-                            className="mx-auto text-yellow-400 mb-4 drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]"
+                            size={80}
+                            className="text-yellow-400 mb-3"
                         />
-
-                        <h3 className="text-xl font-bold text-white mb-1 drop-shadow-md">
+                        <p className="text-xl font-bold text-yellow-300">
                             1st Place
-                        </h3>
-                        <p className="text-4xl font-extrabold text-yellow-300 drop-shadow-[0_0_10px_rgba(253,224,71,0.8)]">
+                        </p>
+                        <p className="text-3xl font-extrabold text-yellow-400">
                             ৳10,000
                         </p>
                     </motion.div>
 
                     {/* 🥉 3rd */}
                     <motion.div
-                        className="w-44 p-4 text-center"
+                        className="flex flex-col items-center text-center"
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                     >
-                        <Award size={40} className="mx-auto text-amber-600 mb-2 drop-shadow-[0_0_15px_rgba(217,119,6,0.5)]" />
-                        <h3 className="text-lg font-semibold text-white drop-shadow-md">
+                        <Award size={56} className="text-cyan-400 mb-3" />
+                        <p className="text-lg font-semibold text-cyan-300">
                             3rd Place
-                        </h3>
-                        <p className="text-2xl font-bold text-amber-500 drop-shadow-[0_0_5px_rgba(245,158,11,0.8)]">
+                        </p>
+                        <p className="text-xl font-bold text-cyan-400">
                             ৳2,500
                         </p>
                     </motion.div>
                 </div>
 
-                {/* 🏅 4th & 5th - Minimal */}
+                <motion.div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                </motion.div>
+
+
+                {/* 🏅 4th & 5th */}
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-lg mx-auto mb-16"
+                    className="flex flex-col items-center gap-4 mb-16"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
                 >
-                    {[4, 5].map((place) => (
+                    {[
+                        { place: 4, amount: "2,000" },
+                        { place: 5, amount: "1,800" },
+                        { place: 6, amount: "1,500" },
+                        { place: 7, amount: "1,300" },
+                        { place: 8, amount: "1,200" },
+                        { place: 9, amount: "1,000" },
+                        { place: 10, amount: "500" },
+                    ].map((prize) => (
                         <div
-                            key={place}
-                            className="px-4 py-3 flex items-center justify-between border-b border-white/20"
+                            key={prize.place}
+                            className="w-[750px] max-w-full px-6 py-4 flex items-center justify-between
+                 border border-cyan-500/30 rounded-lg"
                         >
-                            <div className="flex items-center gap-2">
-                                <Medal size={20} className="text-cyan-400" />
-                                <h4 className="text-lg font-semibold text-white">
-                                    {place}th Place
+                            <div className="flex items-center gap-3">
+                                <Medal size={22} className="text-cyan-400" />
+                                <h4 className="text-lg font-semibold text-cyan-300">
+                                    {prize.place}th Place
                                 </h4>
                             </div>
 
-                            <p className="text-xl font-bold text-cyan-300">
-                                ৳1,000
+                            <p className="text-xl font-bold text-cyan-400">
+                                ৳{prize.amount}
                             </p>
                         </div>
                     ))}
+                </motion.div>
+
+
+
+                <motion.div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 </motion.div>
 
                 {/* 🎁 Info */}
@@ -120,14 +152,22 @@ const PrizePool = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.75 }}
                 >
-                    <Gift size={32} className="mx-auto text-purple-400 mb-4 drop-shadow-[0_0_10px_rgba(192,132,252,0.5)]" />
-                    <h3 className="text-lg font-bold text-white mb-2">
+                    <Gift size={32} className="mx-auto text-purple-400 mb-4" />
+                    <h3 className="text-lg font-bold text-cyan-300 mb-2">
                         Final Round Perks
                     </h3>
                     <p className="text-base text-gray-300">
-                        Every finalist receives an exclusive event T-shirt, Snacks and other exciting gifts.
+                        Every finalist receives an exclusive event T-shirt, snacks and other exciting gifts.
                     </p>
                 </motion.div>
+
+
+                <motion.div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                </motion.div>   
+
             </div>
         </div>
     );
