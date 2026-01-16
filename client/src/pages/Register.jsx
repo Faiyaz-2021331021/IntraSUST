@@ -74,7 +74,7 @@ const Register = () => {
         }
 
         try {
-            const res = await axios.post('http://localhost:5000/api/register', formData);
+            const res = await axios.post('/api/register', formData);
             setStatus({ type: 'success', message: res.data.message });
         } catch (err) {
             setStatus({
