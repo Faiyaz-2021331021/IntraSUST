@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, Code, AlertTriangle, ArrowLeft, Trophy } from 'lucide-react';
+import { Calendar, Clock, Code, AlertTriangle, ArrowLeft, Trophy, Video, Book } from 'lucide-react';
 
 const Rules = () => {
     return (
@@ -41,9 +41,15 @@ const Rules = () => {
                     >
                         <ul className="list-disc pl-5 space-y-2 text-gray-300 text-lg">
                             <li>There will be <strong className="text-white">two preliminary contests</strong>.</li>
-                            <li><strong className="text-white">Top 25 individuals</strong> from the 1st preliminary contest will qualify directly.</li>
-                            <li><strong className="text-white">Top 25 individuals</strong> from the 2nd preliminary contest (excluding those already qualified from Day 1) will qualify.</li>
-                            <li>Total <strong className="text-white">50 individuals</strong> will advance to the Final Contest.</li>
+                            <li>From each preliminary, <strong className="text-white">30 participants</strong> will be selected (25 Merit + 5 Quota).</li>
+                            <li><strong className="text-cyan-400">Quota (5 slots per preliminary):</strong>
+                                <ul className="list-[circle] pl-6 mt-1 space-y-1 text-base text-gray-400">
+                                    <li>Top 2 <strong className="text-white">Female participants</strong> (outside Top 25).</li>
+                                    <li>Top 2 participants from <strong className="text-white">Batch 2024-2025</strong> (outside Top 25 & Female quota).</li>
+                                    <li>Top 1 from <strong className="text-white">Other Departments</strong> (except CSE, SWE) (outside above quotas).</li>
+                                </ul>
+                            </li>
+                            <li>Total <strong className="text-white">60 individuals</strong> will advance to the Final Contest.</li>
                         </ul>
                     </Section>
 
@@ -70,6 +76,32 @@ const Rules = () => {
                             <li>Any attempt to hack the judgment system is prohibited.</li>
                         </ul>
                     </Section>
+
+                    <Section
+                        icon={<Video className="text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.8)]" size={40} />}
+                        title="Screen Record"
+                        delay={0.5}
+                    >
+                        <p className="text-gray-300 text-lg leading-relaxed">
+                            All <strong className="text-white">top 50</strong> must submit the screen recording of the whole preliminary contest (Using OBS or any other software). Those who fail to submit the screen recording will not be considered for the final submission.
+                        </p>
+                    </Section>
+
+                    <Section
+                        icon={<Book className="text-blue-400 drop-shadow-[0_0_10px_rgba(96,165,250,0.8)]" size={40} />}
+                        title="Codebook"
+                        delay={0.6}
+                    >
+                        <ul className="list-disc pl-5 space-y-2 text-gray-300 text-lg">
+                            <li>Each participant can bring a <strong className="text-white">code book of 25 pages</strong>.</li>
+                            <li>Only <strong className="text-white">hardcopy</strong> is allowed.</li>
+                            <li><strong className="text-red-400">No online copy, soft copy, or GitHub</strong> access is permitted.</li>
+                        </ul>
+                    </Section>
+                    <p>
+                        <br></br>
+                        <br></br>
+                    </p>
                 </div>
             </div>
         </div>
@@ -92,6 +124,7 @@ const Section = ({ icon, title, children, delay }) => (
             {children}
         </div>
     </motion.div>
+
 );
 
 export default Rules;

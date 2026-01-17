@@ -98,7 +98,10 @@ const Register = () => {
                 >
                     <CheckCircle size={80} className="text-cyan-400 mx-auto mb-6 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
                     <h2 className="text-3xl font-bold mb-4 text-white drop-shadow-md">Registration Complete!</h2>
-                    <p className="text-cyan-100 mb-8 text-lg">Thank you for registering for Intra SUST Programming Contest - 2026.</p>
+                    <p className="text-cyan-100 mb-4 text-lg">Thank you for registering for Intra SUST Programming Contest - 2026.</p>
+                    <p className="text-gray-300 mb-8 text-md">
+                        Please carefully read all the rules of the contest in <Link to="/rules" className="text-cyan-400 underline hover:text-cyan-300 font-bold">Rulebook</Link>.
+                    </p>
 
                     <div className="flex flex-col gap-4">
                         <Link to="/" className="bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-bold py-3 rounded-lg hover:bg-cyan-500/40 transition-all shadow-[0_0_15px_rgba(34,211,238,0.3)]">

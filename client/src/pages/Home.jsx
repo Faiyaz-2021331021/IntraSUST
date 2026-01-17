@@ -47,10 +47,10 @@ const Home = () => {
                 >
                     {/* Badge */}
                     <motion.div
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.25 }}
                         className="inline-block mb-6"
                     >
-                        <span className="inline-flex items-center gap-4 px-10 py-4 rounded-full bg-cyan-900/20 border border-cyan-500/30 text-cyan-300 font-mono backdrop-blur-sm shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                        <span className="inline-flex items-center gap-4 px-[120px] py-4 rounded-full bg-cyan-900/20 border border-cyan-500/30 text-cyan-300 font-mono backdrop-blur-sm shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                             <BrainCircuit size={40} className="text-cyan-400" />
                             <span className="text-2xl md:text-3xl font-bold tracking-wider">
                                 Intra SUST Programming Contest - 2026
