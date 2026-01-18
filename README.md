@@ -79,9 +79,9 @@ Follow these instructions to set up the project locally on your machine.
 3. **Environment Variables**
    Create a `.env` file in the `server` directory and configure your Google Sheets API credentials.
    ```env
-   GOOGLE_SERVICE_ACCOUNT_EMAIL=your_email
-   GOOGLE_PRIVATE_KEY=your_key
-   SPREADSHEET_ID=your_spreadsheet_id
+   GOOGLE_SERVICE_ACCOUNT_EMAIL="Hidden"
+   GOOGLE_PRIVATE_KEY="Hidden"
+   SPREADSHEET_ID="Hidden"
    ```
 
 ### Running the Project
