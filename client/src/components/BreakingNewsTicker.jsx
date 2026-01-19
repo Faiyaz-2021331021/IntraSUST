@@ -12,13 +12,13 @@ const BreakingNewsTicker = () => {
         <div className="ticker-wrapper">
           <div className="ticker-content">
             <span className="ticker-item font-medium text-sm md:text-base">
-              {message}
+              {message} <span className="mx-2">|</span> <a href="https://www.facebook.com/share/16qAFmRAu7/" target="_blank" rel="noopener noreferrer" className="underline hover:text-yellow-300 font-bold">Follow us on Facebook for more news and all updates</a>
             </span>
             <span className="ticker-item font-medium text-sm md:text-base">
-              {message}
+              {message} <span className="mx-2">|</span> <a href="https://www.facebook.com/share/16qAFmRAu7/" target="_blank" rel="noopener noreferrer" className="underline hover:text-yellow-300 font-bold">Follow us on Facebook for more news and all updates</a>
             </span>
             <span className="ticker-item font-medium text-sm md:text-base">
-              {message}
+              {message} <span className="mx-2">|</span> <a href="https://www.facebook.com/share/16qAFmRAu7/" target="_blank" rel="noopener noreferrer" className="underline hover:text-yellow-300 font-bold">Follow us on Facebook for more news and all updates</a>
             </span>
           </div>
         </div>
